@@ -1,0 +1,45 @@
+; Aussie Broadband on Grandstream account 1, for scripts/gs_ssh.py -f.
+; Known working on a WP816, firmware 1.0.3.31, October 2026.
+;
+; ${...} values come from the environment or from gs_ssh.py --env-file:
+;   SIP_USER      Authentication Username (not the phone number)
+;   SIP_PASSWORD  Authentication Password
+;   SIP_NAME      Caller ID Name
+;
+; Lines starting with ';' are skipped. Comments go on their own line.
+config
+; Account Active, Account Name (just a label)
+set 271 1
+set 270 AussieBB
+; SIP Server and Outbound Proxy, exactly as Aussie BB writes it, capitals included
+set 47 AussieBB.nms1.voice.wide.net.au
+set 48 AussieBB.nms1.voice.wide.net.au
+; SIP User ID, Authenticate ID, Authenticate Password, Name
+set 35 ${SIP_USER}
+set 36 ${SIP_USER}
+set 34 ${SIP_PASSWORD}
+set 3 ${SIP_NAME}
+; SIP Registration, Register Expiration (minutes), Local SIP Port
+set 31 1
+set 32 60
+set 40 5060
+; SIP Transport TCP, and Use X-Grandstream-PBX Header off. See SKILL.md
+set 130 1
+set 26054 0
+; DNS Mode A record, NAT Traversal keep-alive, SIP User ID is Phone Number off
+set 103 0
+set 52 2
+set 63 0
+; Preferred Vocoder 1-8: PCMA, PCMU, G.722, Opus, G.723.1, G.729, iLBC, G.726-32
+set 57 8
+set 58 0
+set 59 9
+set 60 123
+set 61 4
+set 62 18
+set 46 98
+set 98 2
+commit
+cfg_update
+exit
+exit
